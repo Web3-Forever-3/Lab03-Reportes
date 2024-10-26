@@ -4,41 +4,46 @@
 
    
    class PDF extends FPDF{
-    // Imprime encabezado de fecha
+   
         
+    function Header() {
+    
+     //espacio
+    $this->Ln(10);
 
+    }
+
+    //en realidad este es el header xd
     function clienteInfo($nombreCliente, $contacto, $ubicacion) {
     
 
-
-
         //Cliente y Fecha Consulta
     $this->SetFont('Arial', 'B', 12);
-    $this->Cell(20, 10, utf8_decode("Cliente:"), 0, 0);
+    $this->Cell(25, 5, utf8_decode("Cliente:"), 0, 0);
     $this->SetFont('Arial', '', 12); 
-    $this->Cell(95, 10, utf8_decode($nombreCliente), 0, 0);
+    $this->Cell(90, 5, utf8_decode($nombreCliente), 0, 0);
     $this->SetFont('Arial', 'B', 12);
-    $this->Cell(40, 10, utf8_decode("Fecha de Consultas"), 0, 1);
+    $this->Cell(40, 5, utf8_decode("Fecha de Consultas"), 0, 1);
    
         //  Contacto y  Fecha de inicio 
     $this->SetFont('Arial', 'B', 12);
-    $this->Cell(25, 10, utf8_decode("Contacto:"), 0, 0);
+    $this->Cell(25, 5, utf8_decode("Contacto:"), 0, 0);
     $this->SetFont('Arial', '', 12); 
-    $this->Cell(90, 10, utf8_decode($contacto), 0, 0);
+    $this->Cell(90, 5, utf8_decode($contacto), 0, 0);
     $this->SetFont('Arial', 'B', 12);
-    $this->Cell(30, 10, utf8_decode("Fecha Inicio:"), 0, 0);
+    $this->Cell(30, 5, utf8_decode("Fecha Inicio:"), 0, 0);
     $this->SetFont('Arial', '', 12); 
-    $this->Cell(30, 10, utf8_decode( "Alguna fecha xd " ), 0, 1);
+    $this->Cell(30, 5, utf8_decode( "Alguna fecha xd " ), 0, 1);
 
         // Ubicación y Fecha Final
     $this->SetFont('Arial', 'B', 12); 
-    $this->Cell(25, 10, utf8_decode("Ubicación:"), 0, 0);
+    $this->Cell(25, 5, utf8_decode("Ubicación:"), 0, 0);
     $this->SetFont('Arial', '', 12); 
-    $this->Cell(90, 10, utf8_decode($ubicacion),0 , 0);
+    $this->Cell(90, 5, utf8_decode($ubicacion),0 , 0);
     $this->SetFont('Arial', 'B', 12);
-    $this->Cell(30, 10, utf8_decode("Fecha Final:"), 0, 0);
+    $this->Cell(30, 5, utf8_decode("Fecha Final:"), 0, 0);
     $this->SetFont('Arial', '', 12); 
-    $this->Cell(30, 10, utf8_decode( "Alguna fecha xd " ), 0, 1);
+    $this->Cell(30, 5, utf8_decode( "Alguna fecha xd " ), 0, 1);
 
      //espacio
     $this->Ln(15);
@@ -48,30 +53,34 @@
     // Datos factura
     function FacturaInfo($FacturaID, $FechaFacturacion, $Empleado, $FechaRequerida, $FechaDespachada) {
         
-        
+        $this->SetFillColor(210, 240, 210); 
+
+       
+
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(20,10,"Factura #:",0,0);
+        $this->Cell(20,7,"Factura #:",'TL',0, '', true);
         $this->SetFont('Arial','',11);
-        $this->Cell(75,10, $FacturaID,0,0);
+        $this->Cell(75,7, $FacturaID,'T',0,'', true);
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(50,10, utf8_decode("Fecha de facturación: "),0,0);
+        $this->Cell(50,7, utf8_decode("Fecha de facturación: "),'T',0,'', true);
         $this->SetFont('Arial','',11);
-        $this->Cell(20,10,utf8_decode("$FechaFacturacion"),0,1);
+        $this->Cell(40,7,utf8_decode("$FechaFacturacion"),'TR',1,'', true);
 
         
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(24,10,"Empleado:",0,0);
+        $this->Cell(24,7,"Empleado:",'L',0,'', true);
         $this->SetFont('Arial','',11);
-        $this->Cell(80,10," $Empleado",0,0);
+        $this->Cell(80,7," $Empleado",0,0,'', true);
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(30,10,"Requerida:",0,0);
+        $this->Cell(30,7,"Requerida:",0,0,'', true);
         $this->SetFont('Arial','',11);
-        $this->Cell(15,10,"$FechaRequerida",0,1);
+        $this->Cell(51,7,"$FechaRequerida",'R',1,'', true);
         
+        $this->Cell(105,10," ",'LB',0,'', true);
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(30,10,"Despachada: ",0,0);
+        $this->Cell(30,10,"Despachada: ",'B',0,'', true);
         $this->SetFont('Arial','',11);
-        $this->Cell(30,10,"$FechaDespachada",0,1);
+        $this->Cell(50,10,"$FechaDespachada",'BR',1,'', true);
         $this->Ln(13);
     }
 
@@ -98,6 +107,7 @@
         $this->Cell(25,10,($Descuento * 100)."%",1,0,'R');
         $this->Cell(30,10,number_format($Total, 2),1,1,'R');
     }
+
    }
 
     //crear el nuevo pdf
@@ -160,7 +170,7 @@ while ($row = mysqli_fetch_assoc($Regis)) {
         $FacturaActual = $row['NumeroFactura'];
 
         // Imprimir encabezado y datos del cliente
-        
+        $pdf-> Header();
         $pdf->clienteInfo($row['NombreCliente'], $row['Contacto'], $row['Ubicacion']);
         $pdf->FacturaInfo(
             $row['NumeroFactura'],
@@ -181,8 +191,9 @@ while ($row = mysqli_fetch_assoc($Regis)) {
         $row['Descuento'], 
         $row['TotalProducto']
     );
-}
 
+}
+// $pdf->Footer();
 // Generar y enviar el PDF al navegador
 $pdf->Output();
 
