@@ -1,6 +1,6 @@
 <?php
     //parametros de conexion (opcionales)
-	$servidor  = "192.168.0.8";
+	$servidor  = "localhost"; //dejar asi para que puedan probarlo todos xd
     $basedatos = "sakila";
     $usuario   = "root";
     $contra    = "SuMySQL";
