@@ -3,7 +3,14 @@
 	$servidor  = "localhost";
     $basedatos = "NorthWind";
     $usuario   = "root";
+<<<<<<< HEAD
     $contra    = "Laila_17";
+=======
+    $contra    = "Kevin12!!";
+	
+    //suprime advertencias
+    //error_reporting(0);
+>>>>>>> 97c588c2c66cfe635d3da5609f864e5f7fb1f75a
 
     //suprime advertencias
     error_reporting(0);
