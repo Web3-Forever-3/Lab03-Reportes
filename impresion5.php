@@ -31,41 +31,37 @@ $sql = "SELECT
 
 $result = mysqli_query($conex, $sql);
 
-// Crear un array para almacenar los datos de las películas
-$peliculas = [];
+// Crear un string XML
+$xml = '<?xml version="1.0" encoding="UTF-8"?>';
+$xml .= '<Peliculas>';
+
 while ($row = mysqli_fetch_assoc($result)) {
-    $pelicula = [
-        'Codigo' => $row['Codigo'],
-        'Nombre' => $row['Nombre'],
-        'Descripcion' => $row['Descripcion'],
-        'Categorias' => $row['Categorias'],
-        'Año' => $row['Año'],
-        'Actores' => []
-    ];
-
-    // Obtener la lista de actores para la película actual
-    $actor_sql = "SELECT CONCAT(a.first_name, ' ', a.last_name) AS Actor
-                  FROM film_actor fa
-                  JOIN actor a ON fa.actor_id = a.actor_id
-                  WHERE fa.film_id = " . intval($row['Codigo']) . "
-                  ORDER BY Actor";
-    $actor_result = mysqli_query($conex, $actor_sql);
-    
-    while ($actor_row = mysqli_fetch_assoc($actor_result)) {
-        $pelicula['Actores'][] = $actor_row['Actor'];
-    }
-
-    $peliculas[] = $pelicula;
+    $xml .= '<Pelicula>';
+    $xml .= '<Codigo>' . htmlspecialchars($row['Codigo']) . '</Codigo>';
+    $xml .= '<Nombre>' . htmlspecialchars($row['Nombre']) . '</Nombre>';
+    $xml .= '<Descripcion>' . htmlspecialchars($row['Descripcion']) . '</Descripcion>';
+    $xml .= '<Categorias>' . htmlspecialchars($row['Categorias']) . '</Categorias>';
+    $xml .= '<Año>' . htmlspecialchars($row['Año']) . '</Año>';
+    $xml .= '</Pelicula>';
 }
 
+$xml .= '</Peliculas>';
+
+// Guardar el XML en un archivo
+$ruta = 'peliculas.xml';
+file_put_contents($ruta, $xml);
+
+// Reinicia el puntero del resultado para poder usarlo de nuevo
+mysqli_data_seek($result, 0); 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Películas - Sakila</title>
-    <link rel="stylesheet" href="estilos/impresion5.css"
+    <link rel="stylesheet" href="estilos/impresion5.css">
 </head>
 <body>
     <h1>Lista de Películas</h1>
@@ -77,21 +73,24 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <th>Descripción</th>
                 <th>Categorías</th>
                 <th>Año</th>
-                <th>Actores</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($peliculas as $pelicula): ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
-                    <td><?php echo $pelicula['Codigo']; ?></td>
-                    <td><?php echo htmlspecialchars($pelicula['Nombre']); ?></td>
-                    <td><?php echo htmlspecialchars($pelicula['Descripcion']); ?></td>
-                    <td><?php echo htmlspecialchars($pelicula['Categorias']); ?></td>
-                    <td><?php echo $pelicula['Año']; ?></td>
-                    <td><?php echo implode(', ', $pelicula['Actores']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Codigo']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Nombre']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Descripcion']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Categorias']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Año']); ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endwhile; ?>
         </tbody>
     </table>
+    
+    <!-- Botón de descarga -->
+    <a href="peliculas.xml" download>
+        <button>Descargar XML</button>
+    </a>
 </body>
 </html>
