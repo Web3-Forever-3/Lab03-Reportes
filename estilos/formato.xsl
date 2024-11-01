@@ -6,51 +6,38 @@
 	<!-- Plantilla General del xml -->
 	<xsl:template match="/">
     	<html>
-        	<title>Inventario NorthWind</title>
-            <body style="background:#FFC;font-family:Verdana, Geneva, sans-serif; font-size:12px">
+            <head>
+                <title>Inventario Sakila</title>
+            </head>
+            <body style="background:#FFF;font-family:Verdana, Geneva, sans-serif; font-size:12px">
                 
-              <h2>Inventario Sakila</h2>
-			
-    		  <table width="500">
-			     <!-- Invoca a las demas secciones del xml -->
-	             <xsl:apply-templates select="informacion/generalidades/empresa"/>
-	             <xsl:apply-templates select="informacion/generalidades/profesor"/>
-              </table>
-              
-              <br /> 
-			  			  
-			  <!-- Datos de la Categoria -->    
-		      <xsl:for-each select="informacion/clasificacion">
-		         <table align="center" width="400">
-		             <tr>
-		                <td colspan="2">
-					       <b>Código: </b><xsl:value-of select="codigo"/> - <xsl:value-of select="codigo"/>
-					    </td>
-						<td colspan="2">
-					       <b>Nombre: </b><xsl:value-of select="nombre"/> - <xsl:value-of select="nombre"/>
-					    </td>
-                     </tr>   
-					 
-					 <xsl:for-each select="articulos">
-					    <tr>
-		                   <td><xsl:value-of select="codart"/></td>
-		                   <td><xsl:value-of select="nomart"/></td>
-		                </tr>   
-					 </xsl:for-each>
-				 </table>
-			     <br />	 
-			  </xsl:for-each>		                
-			    		
-			</body>
-		</html>
+                <h2>Inventario Sakila</h2>
+				<h4>Lab03 --- Forever 3</h4>
+                
+                
+                <br /> 
+                
+                <!-- Bucle para cada película dentro de la clasificación -->
+               <xsl:for-each select="informacion/clasificacion/pelicula">
+                    <table align="center" width="500px" border="4" style="margin-bottom: 20px;">
+                        <tr bgcolor="#cccccc">
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Veces Alquilada</th>
+                            <th>Total Generado</th>
+                        </tr>
+                        <tr>
+                            <td><xsl:value-of select="codigo"/></td>
+                            <td><xsl:value-of select="nombre"/></td>
+                            <td><xsl:value-of select="veces_alquilada"/></td>
+                            <td><xsl:value-of select="total_generado"/></td>
+                        </tr>
+                    </table>
+                    <br /> 
+                </xsl:for-each>
+                
+            </body>
+        </html>
 	</xsl:template>
 	
-	<!-- Declara el acceso e impresión de las secciones del xml -->
-	<!-- Datos de la Empresa -->
-	
-	
-	
-	
-	
-
 </xsl:stylesheet>

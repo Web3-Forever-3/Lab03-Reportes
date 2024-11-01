@@ -77,7 +77,7 @@
 
 			//creacion del documento xml
 			$xml = "<?xml version='1.0' encoding='utf-8' ?>";
-			$xml .= "<?xml-stylesheet type='text/xsl' href='estilos/formatos.xsl'?>"; 
+			$xml .= "<?xml-stylesheet type='text/xsl' href='estilos/formato.xsl'?>"; 
 			$xml .= "<informacion>";
 			$xml .= "   <clasificacion>";
 		
@@ -93,10 +93,8 @@
 			$xml .= "   </clasificacion>";
 			$xml .= "</informacion>";
 
-
-			//escribir archivo xml
 			$ruta = $ruta."primer.xml";
-
+			
 			try{
 				$archivo = fopen($ruta,"w+");
 				fwrite($archivo,$xml);
