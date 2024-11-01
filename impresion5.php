@@ -51,7 +51,7 @@ $xml .= '</Peliculas>';
 $ruta = 'peliculas.xml';
 file_put_contents($ruta, $xml);
 
-// Reinicia el puntero del resultado para poder usarlo de nuevo
+// Se reinicia el puntero del resultado para poder usarlo de nuevo
 mysqli_data_seek($result, 0); 
 ?>
 
@@ -88,7 +88,7 @@ mysqli_data_seek($result, 0);
         </tbody>
     </table>
     
-    <!-- Botón de descarga -->
+    
     <a href="peliculas.xml" download>
         <button>Descargar XML</button>
     </a>
