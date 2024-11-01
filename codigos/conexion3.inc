@@ -1,22 +1,19 @@
 <?php
     //parametros de conexion (opcionales)
 	$servidor  = "localhost";
-    $basedatos = "NorthWind";
+    $basedatos = "xtreme";
     $usuario   = "root";
-    $contra    = "Kevin12!!";
+    $contra    = "Laila_17";
 	
     //suprime advertencias
     //error_reporting(0);
 
-    //suprime advertencias
-    error_reporting(0);
-
-	//proceso para conectar con el servidor
+	//proceso para conectar con el servidor 
     if(!$conex = mysqli_connect($servidor, $usuario, $contra, $basedatos)){
         echo "<h3><font color='red'>Error: No se puede conectar al servidor de MySQL.</font></h3>" . "<hr>";
         echo "<strong>Número........:</strong> " . mysqli_connect_errno() . "<br>";
         echo "<strong>Descripción...:</strong> " . mysqli_connect_error() . "<br>";
-        exit;
-    }
+        exit;          
+    }    
 	mysqli_set_charset($conex,"utf8");
 ?>
