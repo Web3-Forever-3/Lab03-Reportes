@@ -3,7 +3,7 @@
 	$servidor  = "localhost";
     $basedatos = "NorthWind";
     $usuario   = "root";
-    $contra    = "SuMySQL";
+    $contra    = "Kevin12!!";
 	
     //suprime advertencias
     //error_reporting(0);

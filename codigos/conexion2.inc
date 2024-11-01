@@ -3,7 +3,7 @@
 	$servidor  = "localhost"; //dejar asi para que puedan probarlo todos xd
     $basedatos = "sakila";
     $usuario   = "root";
-    $contra    = "SuMySQL";
+    $contra    = "Kevin12!!";
 	
     //suprime advertencias
     //error_reporting(0);
