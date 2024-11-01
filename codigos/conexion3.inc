@@ -1,7 +1,7 @@
 <?php
     //parametros de conexion (opcionales)
-	$servidor  = "localhost"; //dejar asi para que puedan probarlo todos xd
-    $basedatos = "sakila";
+	$servidor  = "localhost";
+    $basedatos = "xtreme";
     $usuario   = "root";
     $contra    = "Laila_17";
 	
@@ -17,5 +17,3 @@
     }    
 	mysqli_set_charset($conex,"utf8");
 ?>
-
-
